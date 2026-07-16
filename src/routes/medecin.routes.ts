@@ -2,6 +2,7 @@ import { Router } from 'express';
 import * as medecinController from '../controllers/medecin.controller';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { validate } from '../middlewares/validate.middleware';
+import { upload } from '../middlewares/upload.middleware';
 import { z } from 'zod';
 
 const router = Router();
@@ -20,8 +21,8 @@ router.use(authMiddleware);
 router.get('/search', medecinController.searchMedecins);
 router.get('/', medecinController.getMedecins);
 router.get('/:id', medecinController.getMedecinById);
-router.post('/', validate(medecinSchema), medecinController.createMedecin);
-router.put('/:id', validate(medecinSchema), medecinController.updateMedecin);
+router.post('/', upload.single('photo'), validate(medecinSchema), medecinController.createMedecin);
+router.put('/:id', upload.single('photo'), validate(medecinSchema), medecinController.updateMedecin);
 router.delete('/:id', medecinController.deleteMedecin);
 
 export default router;

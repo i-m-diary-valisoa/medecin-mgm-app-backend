@@ -3,7 +3,7 @@ import { env } from './config/env';
 
 const startServer = () => {
   try {
-    app.listen(env.PORT, () => {
+    app.listen(Number(env.PORT), '0.0.0.0', () => {
       console.log(`Server is running on port ${env.PORT} in ${env.NODE_ENV} mode`);
     });
   } catch (error) {
